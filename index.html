@@ -1,0 +1,168 @@
+<html ng-app="TempoApp">
+	<head>
+		<title>Tempo</title>
+		<meta charset="utf-8">
+
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+		<script src="http://maps.googleapis.com/maps/api/js"></script>
+		<link href="css/style.css" rel="stylesheet">
+		<link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+		
+		<script src="controllers/IndexController.js"></script>
+		<script src="services/IndexService.js"></script>
+	</head>
+
+	<body ng-controller="pesquisarController">
+		<h1 class="titulo">
+			<img class="logo" src="img/logo.png">
+		</h1>
+		
+		<div class="container menu">
+			<h2>Pesquisar Local</h2>
+	
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="input-group">
+						<input type="text" class="form-control" placeholder="Ex: são paulo-SP" ng-model="local">
+						<span class="input-group-btn" style="width:0">
+							<button type="button" class="btn btn-success" ng-click="pesquisarTempo(local);">Pesquisar</button>
+						</span>
+					</div>
+				</div>
+			</div>
+			<img class="imagemTempo" src={{retorno.agora.imagem}}>
+			<hr style="border-top: 2px solid rgba(8, 8, 8, 0.15);">
+			
+			<div class="dadosMenu">
+				<div class="blocoEsquerdo">
+					<h2>{{retorno.cidade}}</h2>
+					<div class="mapa">
+						<div id="googleMap" ng-show="previsoes!=NULL" style="width:500px;height:300px;"></div>
+					</div>
+				</div>
+				
+				<div class="blocoDireito">
+					<div class="dados"  ng-show="previsoes!=NULL">
+						<table style="width:100%" class="table table-condensed">
+							<thead>
+								<tr>
+									<th><span>Data Hora</span></th>
+									<th><span>Descrição</span></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>{{retorno.agora.data_hora}}</td>
+									<td>{{retorno.agora.descricao}}</td>
+								</tr>
+							</tbody>
+						</table>
+						
+						<table style="width:100%" class="table table-condensed">
+							<thead>
+								<tr>
+									<th><span>Nascer do Sol</span></th>
+									<th><span>Por do Sol</span></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>{{retorno.agora.nascer_do_sol}}</td>
+									<td>{{retorno.agora.por_do_sol}}</td>
+								</tr>
+							</tbody>
+						</table>
+						
+						<table style="width:100%" class="table table-condensed">
+							<thead>
+								<tr>
+									<th><span style="margin-right: 90px;">Pressão</span></th>
+									<th><span>Pressão Status</span></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>{{retorno.agora.pressao}}</td>
+									<td>{{retorno.agora.pressao_status}}</td>
+								</tr>
+							</tbody>
+						</table>
+						
+						<table style="width:100%" class="table table-condensed">
+							<thead>
+								<tr>
+									<th><span>Temperatura</span></th>
+									<th><span>Umidade</span></th>
+									<th><span>Vento velocidade</span></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>{{retorno.agora.temperatura}}</td>
+									<td>{{retorno.agora.umidade}}</td>
+									<td>{{retorno.agora.vento_velocidade}}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>	
+				</div>
+				
+				<div class="blocoBaixo" ng-show="previsoes!=NULL">
+					
+					 <div class="row"> 
+						<div class="col-xs-4">
+							<label for="search">Pesquisar:</label>
+							<input ng-model="q" id="search" class="form-control" placeholder="Buscar Orcamento">
+						</div>
+
+						<div class="col-xs-4">
+							<label for="search">Quantidade por página:</label>
+							<input type="number" min="1" max="10" class="form-control" ng-model="pageSize">
+						</div>
+					</div>
+					<br>
+					
+					 <div class="panel panel-default">
+						<div class="panel-body">
+
+							<table class="table user-list">
+								<thead>
+									<tr>
+										<th><span>Data</span></th>
+										<th><span>Descrição</span></th>
+										<th><span>Temperatura Max</span></th>
+										<th><span>Temperatura Min</span></th>
+										<th>&nbsp;</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="dado in previsoes | filter:q | limitTo:pageSize">
+										<td>
+											{{dado.data}}
+										</td>
+
+										<td>
+											{{dado.descricao}}
+										</td>
+
+										<td>
+											{{dado.temperatura_max}}°
+										</td>
+
+										<td>
+											{{dado.temperatura_min}}°
+										</td>
+										<td>
+											<img src={{dado.imagem}} style="width: 30px;">
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
