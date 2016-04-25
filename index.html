@@ -35,6 +35,7 @@
 			
 			<div class="dadosMenu">
 				<div class="blocoEsquerdo">
+					<h3 ng-show="previsoes==NULL">Exemplo: Pesquise pelo nome da cidade e pela sigla do Estado no seguinte formato "Cidade-SiglaEstado"</h3>
 					<h2>{{retorno.cidade}}</h2>
 					<div class="mapa">
 						<div id="googleMap" ng-show="previsoes!=NULL" style="width:500px;height:300px;"></div>
