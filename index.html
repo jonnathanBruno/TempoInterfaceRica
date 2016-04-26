@@ -10,8 +10,9 @@
 		
 		<script src="controllers/IndexController.js"></script>
 		<script src="services/IndexService.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.0.1/Chart.js"></script>
 	</head>
-
+	
 	<body ng-controller="pesquisarController">
 		<h1 class="titulo">
 			<img class="logo" src="img/logo.png">
@@ -43,6 +44,11 @@
 				</div>
 				
 				<div class="blocoDireito">
+					<canvas id="myChart" width="50" height="50" class="grafico"></canvas>
+				</div>
+				
+				<div class="blocoBaixo">
+					<h2>Previsão para Hoje</h2>
 					<div class="dados"  ng-show="previsoes!=NULL">
 						<table style="width:100%" class="table table-condensed">
 							<thead>
@@ -108,7 +114,9 @@
 					</div>	
 				</div>
 				
+				
 				<div class="blocoBaixo" ng-show="previsoes!=NULL">
+					<h2>Previsões Futuras</h2>
 					
 					 <div class="row"> 
 						<div class="col-xs-4">
